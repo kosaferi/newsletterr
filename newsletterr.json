@@ -1,0 +1,41 @@
+{
+  "name": "newsletterr",
+  "description": "Newsletterr Docker container",
+  "image": "jma1ice/newsletterr:latest",
+  "repository": "https://hub.docker.com/r/jma1ice/newsletterr",
+  "tags": "latest",
+  "webui": {
+    "port": 6397,
+    "path": "/"
+  },
+  "advanced": {
+    "variables": [
+      {
+        "name": "PUBLIC_BASE_URL",
+        "label": "Public Base URL",
+        "description": "Base URL for public access",
+        "default": "http://127.0.0.1:6397"
+      }
+    ],
+    "container": {
+      "Bind": [
+        {
+          "HostDir": "/mnt/user/appdata/newsletterr",
+          "ContainerDir": "/app/data"
+        }
+      ],
+      "PortMappings": [
+        {
+          "HostPort": 6397,
+          "ContainerPort": 6397
+        }
+      ],
+      "Env": [
+        "PUBLIC_BASE_URL=${PUBLIC_BASE_URL}"
+      ],
+      "Volume": [
+        "/mnt/user/appdata/newsletterr"
+      ]
+    }
+  }
+}
