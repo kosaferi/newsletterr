@@ -1,41 +1,44 @@
 {
-  "name": "newsletterr",
+  "name": "Newsletterr",
+  "version": "1.0.0",
+  "title": "Newsletterr",
   "description": "Newsletterr Docker container",
-  "image": "jma1ice/newsletterr:latest",
+  "match": ["newsletterr"],
+  "icon": "https://logopond.com/logos/dae90504146a4ed356e9a2c0923de4c9.png",
+  "support": "https://forum.unraid.net/topic/your-support-topic/",
+  "project": "https://github.com/jma1ice/newsletterr",
+  "overview": "Newsletterr is a tool for managing email newsletters. \n\nIt runs from Docker and stores data in appdata. \n\nConfigure environment variables and ports as needed.",
+  "categories": ["Media", "Tools"],
+  "webui": "http://[IP]:[PORT]",
   "repository": "https://hub.docker.com/r/jma1ice/newsletterr",
-  "tags": "latest",
-  "webui": {
-    "port": 6397,
-    "path": "/"
-  },
-  "advanced": {
-    "variables": [
+  "images": ["https://logopond.com/logos/dae90504146a4ed356e9a2c0923de4c9.png"],
+  "resources": {},
+  "additional_params": [
+    {
+      "name": "PUBLIC_BASE_URL",
+      "label": "Public Base URL",
+      "description": "Base URL for accessing Newsletterr",
+      "default": "http://127.0.0.1:6397"
+    }
+  ],
+  "docker": {
+    "image": "jma1ice/newsletterr:latest",
+    "ports": [
       {
-        "name": "PUBLIC_BASE_URL",
-        "label": "Public Base URL",
-        "description": "Base URL for public access",
-        "default": "http://127.0.0.1:6397"
+        "container": 6397,
+        "host": 6397,
+        "description": "Web UI port"
       }
     ],
-    "container": {
-      "Bind": [
-        {
-          "HostDir": "/mnt/user/appdata/newsletterr",
-          "ContainerDir": "/app/data"
-        }
-      ],
-      "PortMappings": [
-        {
-          "HostPort": 6397,
-          "ContainerPort": 6397
-        }
-      ],
-      "Env": [
-        "PUBLIC_BASE_URL=${PUBLIC_BASE_URL}"
-      ],
-      "Volume": [
-        "/mnt/user/appdata/newsletterr"
-      ]
-    }
+    "volumes": [
+      {
+        "hostPath": "/mnt/user/appdata/newsletterr",
+        "containerPath": "/app/data",
+        "mode": "rw"
+      }
+    ],
+    "environment": [
+      "PUBLIC_BASE_URL=${PUBLIC_BASE_URL}"
+    ]
   }
 }
